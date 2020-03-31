@@ -11,12 +11,19 @@ services:
       - "8080:80"
       # The Web UI (enabled by --api.insecure=true)
       - "8081:8080"
+      - "162:162/udp"
     volumes:
       # So that Traefik can listen to the Docker events
       - /var/run/docker.sock:/var/run/docker.sock
+      - ./traefik.yml:/etc/traefik/traefik.yml
       # ...
   whoami:
     # A container that exposes an API to show its IP address
     image: containous/whoami
     labels:
       - "traefik.http.routers.whoami.rule=Host(`whoami.docker.localhost`)"
+
+  trap-collector:
+    image: local/trap-collector
+    labels:
+      - "traefik.udp.routers.trap-collector"
