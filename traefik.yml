@@ -1,0 +1,20 @@
+entrypoints:
+  snmp:
+    address: ":162/udp"
+  web:
+    address: ":80"
+api:
+  insecure: true
+  dashboard: true
+providers:
+  docker:
+    watch: true
+    swarmMode: false
+
+udp:
+  routers:
+    snmp-trap:
+      entrypoints:
+        - "snmp"
+      service:
+        - "trap-collector"
