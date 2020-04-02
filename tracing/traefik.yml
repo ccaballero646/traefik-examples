@@ -1,0 +1,14 @@
+entrypoints:
+  web:
+    address: ":80"
+api:
+  insecure: true
+  dashboard: true
+providers:
+  docker:
+    watch: true
+    exposedByDefault: false
+tracing:
+  jaeger:
+    samplingServerURL: http://jaeger:5778/sampling
+    localAgentHostPort: jaeger:6831
